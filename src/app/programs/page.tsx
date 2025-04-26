@@ -1,3 +1,3 @@
 export default function ProgramsPage() {
-  return <div>Clients</div>;
+  return <div>Programs</div>;
 }
