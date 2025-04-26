@@ -34,7 +34,7 @@ export async function createClient(data: z.infer<typeof createClientSchema>) {
   return newClient[0];
 }
 
-interface GetAllClientsOptions {
+interface GetClientsOptions {
   page?: number;
   limit?: number;
   search?: string;
@@ -44,7 +44,7 @@ export async function getClients({
   page = 1,
   limit = 10,
   search = "",
-}: GetAllClientsOptions = {}) {
+}: GetClientsOptions = {}) {
   const offset = (page - 1) * limit;
 
   const query = db
