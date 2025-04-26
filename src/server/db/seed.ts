@@ -1,7 +1,18 @@
-import { db } from "@/server/db/index";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { program, client, programClient } from "./schema";
+import postgres from "postgres";
+import { env } from "@/env";
+import * as schema from "./schema";
 
 async function seed() {
+  // Create a new database connection for seeding
+  // This is separate from the connection used in the main application
+  // to avoid conflicts.
+  // As such, while running this script, the main application
+  // should not be running.
+  const sql = postgres(env.DATABASE_URL);
+  const db = drizzle(sql, { schema });
+
   try {
     // Insert programs
     const programs = await db
@@ -79,6 +90,9 @@ async function seed() {
   } catch (error) {
     console.error("Error seeding database:", error);
     throw error;
+  } finally {
+    await sql.end(); // Close the database connection
+    console.log("Database connection closed");
   }
 }
 
