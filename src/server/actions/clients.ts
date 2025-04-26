@@ -17,7 +17,7 @@ export const createClientSchema = z.object({
   phoneNumber: z.string().max(PHONE_NUMBER_LENGTH),
 });
 
-const clientDbFilter = {
+export const clientDbFilter = {
   id: client.id,
   firstName: client.firstName,
   lastName: client.lastName,
