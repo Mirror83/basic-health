@@ -4,12 +4,17 @@
 import { sql } from "drizzle-orm";
 import { index, pgTable } from "drizzle-orm/pg-core";
 
+export const CLIENT_NAME_LENGTH = 100;
+export const PHONE_NUMBER_LENGTH = 20;
+export const MAX_VARCHAR_LENGTH = 256;
+export const MAX_EMAIL_LENGTH = 254;
+
 export const program = pgTable(
   "program",
   (d) => ({
     id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    name: d.varchar({ length: 256 }).notNull(),
-    summary: d.varchar({ length: 256 }).notNull(),
+    name: d.varchar({ length: MAX_VARCHAR_LENGTH }).notNull(),
+    summary: d.varchar({ length: MAX_VARCHAR_LENGTH }).notNull(),
     description: d.text().notNull(),
     startDate: d.timestamp({ withTimezone: true }).notNull(),
     endDate: d.timestamp({ withTimezone: true }).notNull(),
@@ -26,10 +31,10 @@ export const client = pgTable(
   "client",
   (d) => ({
     id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    firstName: d.varchar({ length: 100 }).notNull(),
-    lastName: d.varchar({ length: 100 }).notNull(),
-    email: d.varchar({ length: 255 }).notNull(),
-    phoneNumber: d.varchar({ length: 20 }).notNull(),
+    firstName: d.varchar({ length: CLIENT_NAME_LENGTH }).notNull(),
+    lastName: d.varchar({ length: CLIENT_NAME_LENGTH }).notNull(),
+    email: d.varchar({ length: MAX_EMAIL_LENGTH }).notNull(),
+    phoneNumber: d.varchar({ length: PHONE_NUMBER_LENGTH }).notNull(),
     createdAt: d
       .timestamp({ withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
