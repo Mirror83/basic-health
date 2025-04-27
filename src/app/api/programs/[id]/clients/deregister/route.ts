@@ -1,8 +1,8 @@
 import { deregisterClientFromProgram } from "@/server/actions/program-client";
+import { idSchema } from "@/server/zod-schemas";
 import { z } from "zod";
 
 type params = Promise<{ id: string; clientId: string }>;
-const idSchema = z.coerce.number().int().positive();
 
 const bodySchema = z.object({
   clientId: idSchema,

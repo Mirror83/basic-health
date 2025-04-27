@@ -1,11 +1,9 @@
 import { deleteClient } from "@/server/actions/clients";
-import { z } from "zod";
+import { idSchema } from "@/server/zod-schemas";
 
 type Params = Promise<{
   id: string;
 }>;
-
-const idSchema = z.coerce.number().int().positive();
 
 export async function DELETE(request: Request, { params }: { params: Params }) {
   try {

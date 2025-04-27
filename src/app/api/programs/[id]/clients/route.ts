@@ -1,8 +1,7 @@
 import { getRegisteredClients } from "@/server/actions/program-client";
-import { z } from "zod";
+import { idSchema } from "@/server/zod-schemas";
 
 type params = Promise<{ id: string }>;
-const idSchema = z.coerce.number().int().positive();
 
 export async function GET(request: Request, { params }: { params: params }) {
   try {

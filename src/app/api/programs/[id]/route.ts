@@ -3,13 +3,10 @@ import {
   updateProgram,
   deleteProgram,
 } from "@/server/actions/programs";
-import { z } from "zod";
-
+import { idSchema } from "@/server/zod-schemas";
 import { updateProgramSchema } from "@/server/zod-schemas";
 
 type Params = Promise<{ id: string }>;
-
-const idSchema = z.coerce.number().int().positive();
 
 export async function GET(request: Request, { params }: { params: Params }) {
   try {

@@ -30,4 +30,6 @@ export const updateProgramSchema = z.object({
   endDate: z.date().optional(),
 });
 
+export const idSchema = z.coerce.number().int().positive();
+
 export type Program = z.infer<typeof createProgramSchema> & { id: number };
