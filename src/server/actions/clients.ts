@@ -1,14 +1,12 @@
-// import "server-only";
-
 import { z } from "zod";
 import { db } from "../db";
+import { client } from "../db/schema";
+import { eq, like, or } from "drizzle-orm";
 import {
-  client,
   CLIENT_NAME_LENGTH,
   MAX_EMAIL_LENGTH,
   PHONE_NUMBER_LENGTH,
-} from "../db/schema";
-import { eq, like, or } from "drizzle-orm";
+} from "../db/constants";
 
 export const createClientSchema = z.object({
   firstName: z.string().min(1).max(CLIENT_NAME_LENGTH),
@@ -24,6 +22,8 @@ export const clientDbFilter = {
   email: client.email,
   phoneNumber: client.phoneNumber,
 };
+
+export type Client = z.infer<typeof createClientSchema> & { id: number };
 
 export async function createClient(data: z.infer<typeof createClientSchema>) {
   const newClient = await db

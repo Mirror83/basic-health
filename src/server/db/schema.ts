@@ -3,11 +3,12 @@
 
 import { sql } from "drizzle-orm";
 import { index, pgTable } from "drizzle-orm/pg-core";
-
-export const CLIENT_NAME_LENGTH = 100;
-export const PHONE_NUMBER_LENGTH = 20;
-export const MAX_VARCHAR_LENGTH = 256;
-export const MAX_EMAIL_LENGTH = 254;
+import {
+  CLIENT_NAME_LENGTH,
+  MAX_EMAIL_LENGTH,
+  MAX_VARCHAR_LENGTH,
+  PHONE_NUMBER_LENGTH,
+} from "@/server/db/constants";
 
 export const program = pgTable(
   "program",
