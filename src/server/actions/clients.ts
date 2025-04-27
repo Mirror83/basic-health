@@ -6,6 +6,7 @@ import { client } from "../db/schema";
 import { eq, like, or } from "drizzle-orm";
 import type { createClientSchema } from "../zod-schemas";
 import { clientDbFilter } from "../db/filters";
+import { getRegisteredPrograms } from "./program-client";
 
 export async function getClientById(id: number) {
   const result = await db
@@ -86,4 +87,13 @@ export async function deleteClient(id: number) {
     throw new Error("Client not found");
   }
   return deletedClient;
+}
+
+export async function getClientProfile(id: number) {
+  const retrievedClient = await getClientById(id);
+  const programs = await getRegisteredPrograms(id);
+  return {
+    client: retrievedClient,
+    programs,
+  };
 }
