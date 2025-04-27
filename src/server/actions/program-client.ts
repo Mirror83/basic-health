@@ -36,7 +36,7 @@ export async function getRegisteredPrograms(clientId: number) {
   const programs = await db
     .select(programDbFilter)
     .from(programClient)
-    .leftJoin(program, eq(programClient.clientId, program.id))
+    .innerJoin(program, eq(programClient.clientId, program.id))
     .where(eq(programClient.clientId, clientId));
 
   return programs;
@@ -46,7 +46,7 @@ export async function getRegisteredClients(programId: number) {
   const clients = await db
     .select(clientDbFilter)
     .from(programClient)
-    .leftJoin(client, eq(programClient.clientId, client.id))
+    .innerJoin(client, eq(programClient.clientId, client.id))
     .where(eq(programClient.programId, programId));
 
   return clients;
