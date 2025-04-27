@@ -7,6 +7,15 @@ import { eq, like, or } from "drizzle-orm";
 import type { createClientSchema } from "../zod-schemas";
 import { clientDbFilter } from "../db/filters";
 
+export async function getClientById(id: number) {
+  const result = await db
+    .select(clientDbFilter)
+    .from(client)
+    .where(eq(client.id, id));
+
+  return result[0];
+}
+
 export async function createClient(data: z.infer<typeof createClientSchema>) {
   const newClient = await db
     .insert(client)
