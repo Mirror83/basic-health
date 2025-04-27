@@ -7,13 +7,16 @@ import type { createProgramSchema, updateProgramSchema } from "../zod-schemas";
 import { programDbFilter } from "../db/filters";
 import type { z } from "zod";
 
-export function createProgram(data: z.infer<typeof createProgramSchema>) {
-  const newProgram = db.insert(program).values(data).returning();
+export async function createProgram(data: z.infer<typeof createProgramSchema>) {
+  const newProgram = await db.insert(program).values(data).returning();
   return newProgram;
 }
 
-export function deleteProgram(id: number) {
-  const oldProgram = db.delete(program).where(eq(program.id, id)).returning();
+export async function deleteProgram(id: number) {
+  const oldProgram = await db
+    .delete(program)
+    .where(eq(program.id, id))
+    .returning();
   return oldProgram;
 }
 
@@ -60,11 +63,11 @@ export async function getPrograms({
   return programs;
 }
 
-export function updateProgram(
+export async function updateProgram(
   id: number,
   data: z.infer<typeof updateProgramSchema>,
 ) {
-  const updatedProgram = db
+  const updatedProgram = await db
     .update(program)
     .set(data)
     .where(eq(program.id, id))
