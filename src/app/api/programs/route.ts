@@ -1,9 +1,7 @@
-import {
-  createProgram,
-  createProgramSchema,
-  getPrograms,
-} from "@/server/actions/programs";
+import { createProgram, getPrograms } from "@/server/actions/programs";
 import type { NextRequest } from "next/server";
+
+import { createProgramSchema } from "@/server/zod-schemas";
 
 export async function GET(request: NextRequest) {
   try {

@@ -1,29 +1,11 @@
-import { z } from "zod";
+"use server";
+
+import type { z } from "zod";
 import { db } from "../db";
 import { client } from "../db/schema";
 import { eq, like, or } from "drizzle-orm";
-import {
-  CLIENT_NAME_LENGTH,
-  MAX_EMAIL_LENGTH,
-  PHONE_NUMBER_LENGTH,
-} from "../db/constants";
-
-export const createClientSchema = z.object({
-  firstName: z.string().min(1).max(CLIENT_NAME_LENGTH),
-  lastName: z.string().min(1).max(CLIENT_NAME_LENGTH),
-  email: z.string().email().max(MAX_EMAIL_LENGTH),
-  phoneNumber: z.string().max(PHONE_NUMBER_LENGTH),
-});
-
-export const clientDbFilter = {
-  id: client.id,
-  firstName: client.firstName,
-  lastName: client.lastName,
-  email: client.email,
-  phoneNumber: client.phoneNumber,
-};
-
-export type Client = z.infer<typeof createClientSchema> & { id: number };
+import type { createClientSchema } from "../zod-schemas";
+import { clientDbFilter } from "../db/filters";
 
 export async function createClient(data: z.infer<typeof createClientSchema>) {
   const newClient = await db

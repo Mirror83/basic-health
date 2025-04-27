@@ -1,8 +1,5 @@
-import {
-  createClient,
-  createClientSchema,
-  getClients,
-} from "@/server/actions/clients";
+import { createClient, getClients } from "@/server/actions/clients";
+import { createClientSchema } from "@/server/zod-schemas";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

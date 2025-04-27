@@ -1,10 +1,11 @@
 import {
   getProgramById,
-  updateProgramSchema,
   updateProgram,
   deleteProgram,
 } from "@/server/actions/programs";
 import { z } from "zod";
+
+import { updateProgramSchema } from "@/server/zod-schemas";
 
 type Params = Promise<{ id: string }>;
 

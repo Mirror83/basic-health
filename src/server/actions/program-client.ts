@@ -1,8 +1,9 @@
+"use server";
+
 import { and, eq } from "drizzle-orm";
 import { db } from "@/server/db/index";
 import { client, program, programClient } from "@/server/db/schema";
-import { programDbFilter } from "@/server/actions/programs";
-import { clientDbFilter } from "@/server/actions/clients";
+import { clientDbFilter, programDbFilter } from "@/server/db/filters";
 
 export async function registerClientToProgram(
   clientId: number,

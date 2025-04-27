@@ -1,23 +1,11 @@
-import { z } from "zod";
+"use server";
+
 import { program } from "../db/schema";
 import { db } from "../db";
 import { eq, like, or } from "drizzle-orm";
-
-export const createProgramSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  summary: z.string(),
-  description: z.string(),
-  startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
-});
-
-export const programDbFilter = {
-  name: program.name,
-  summary: program.summary,
-  description: program.description,
-  startDate: program.startDate,
-  endDate: program.endDate,
-};
+import type { createProgramSchema, updateProgramSchema } from "../zod-schemas";
+import { programDbFilter } from "../db/filters";
+import type { z } from "zod";
 
 export function createProgram(data: z.infer<typeof createProgramSchema>) {
   const newProgram = db.insert(program).values(data).returning();
@@ -71,14 +59,6 @@ export async function getPrograms({
 
   return programs;
 }
-
-export const updateProgramSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }).optional(),
-  summary: z.string().optional(),
-  description: z.string().optional(),
-  startDate: z.date().optional(),
-  endDate: z.date().optional(),
-});
 
 export function updateProgram(
   id: number,
