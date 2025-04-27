@@ -9,6 +9,7 @@ export const clientDbFilter = {
 };
 
 export const programDbFilter = {
+  id: program.id,
   name: program.name,
   summary: program.summary,
   description: program.description,
