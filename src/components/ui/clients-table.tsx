@@ -36,7 +36,7 @@ export function ClientsTable({
             <TableCell>{client.phoneNumber}</TableCell>
             <TableCell>
               <Button variant={"link"}>
-                <Link href={"/clients/{id}/profile"}>View Profile</Link>
+                <Link href={`/clients/${client.id}/profile`}>View Profile</Link>
               </Button>
             </TableCell>
           </TableRow>
