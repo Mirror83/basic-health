@@ -2,13 +2,16 @@
 
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
+
+const DEBOUNCE_TIMEOUT_MS = 300;
 
 export function ClientSearch() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
-  function handleSearch(term: string) {
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set("search", term);
@@ -17,7 +20,8 @@ export function ClientSearch() {
     }
     router.replace(`${pathname}?${params.toString()}`);
     console.log(term);
-  }
+  }, DEBOUNCE_TIMEOUT_MS);
+
   return (
     <div className="flex w-full max-w-sm items-center space-x-2">
       <Input
