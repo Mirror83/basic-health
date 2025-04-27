@@ -4,6 +4,7 @@ import { and, eq } from "drizzle-orm";
 import { db } from "@/server/db/index";
 import { client, program, programClient } from "@/server/db/schema";
 import { clientDbFilter, programDbFilter } from "@/server/db/filters";
+import { revalidatePath } from "next/cache";
 
 export async function registerClientToProgram(
   clientId: number,
@@ -11,7 +12,10 @@ export async function registerClientToProgram(
 ) {
   const registration = await db
     .insert(programClient)
-    .values({ clientId, programId });
+    .values({ clientId, programId })
+    .returning();
+
+  revalidatePath(`/programs/${programId}`);
 
   return registration;
 }

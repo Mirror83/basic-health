@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import type { Program } from "@/server/zod-schemas";
 import { Button } from "./button";
+import Link from "next/link";
 
 export function ProgramsTable({
   programs,
@@ -35,7 +36,7 @@ export function ProgramsTable({
             <TableCell>{program.endDate.toDateString()}</TableCell>
             <TableCell>
               <Button variant={"link"}>
-                {/* <Link href={"/programs/{id}/profile"}>View Pr</Link> */}
+                <Link href={`/programs/${program.id}`}>View Program</Link>
               </Button>
             </TableCell>
           </TableRow>
