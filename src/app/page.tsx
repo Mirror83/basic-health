@@ -4,14 +4,17 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="font-2xl font-bold">Basic Health</h1>
+      <div className="my-4 flex gap-4 text-lg">
+        <p>Welcome to this basic health program management system.</p>
+      </div>
       <div className="my-4 flex gap-4">
-        <Link href={"/clients"}>
-          <Button>Clients</Button>
-        </Link>
-        <Link href={"/programs"}>
-          <Button>Programs</Button>
-        </Link>
+        <Button asChild>
+          <Link href={"/clients"}>Clients</Link>
+        </Button>
+
+        <Button asChild>
+          <Link href={"/programs"}>Programs</Link>
+        </Button>
       </div>
     </main>
   );
